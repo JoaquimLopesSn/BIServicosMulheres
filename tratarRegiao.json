@@ -13,44 +13,132 @@
         "z": "7b6647aef220e520",
         "name": "Tratar REGIÃO",
         "links": [],
-        "x": 165,
-        "y": 120,
+        "x": 75,
+        "y": 80,
         "wires": [
             []
         ]
     },
     {
-        "id": "da074a2bd135a6c9",
+        "id": "b046ee190797a74a",
         "type": "function",
         "z": "7b6647aef220e520",
-        "name": "function 1",
-        "func": "\nreturn msg;",
+        "name": "Carrega região",
+        "func": "msg.payload = 'N ';\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 300,
-        "y": 120,
+        "x": 280,
+        "y": 160,
         "wires": [
-            []
+            [
+                "7ecf32ea6c4a3bab"
+            ]
         ]
     },
     {
-        "id": "d4a0b38bcb79a42f",
+        "id": "a781a448c562a970",
+        "type": "inject",
+        "z": "7b6647aef220e520",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 90,
+        "y": 160,
+        "wires": [
+            [
+                "b046ee190797a74a"
+            ]
+        ]
+    },
+    {
+        "id": "7ecf32ea6c4a3bab",
         "type": "function",
         "z": "7b6647aef220e520",
-        "name": "function 2",
-        "func": "\nreturn msg;",
+        "name": "Retirar os espaços (inicio e fim)",
+        "func": "var re = msg.payload.trim();\nmsg.payload = re\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 480,
-        "y": 120,
+        "x": 530,
+        "y": 160,
         "wires": [
-            []
+            [
+                "1f75752b3873facf"
+            ]
         ]
+    },
+    {
+        "id": "1f75752b3873facf",
+        "type": "function",
+        "z": "7b6647aef220e520",
+        "name": "altera string",
+        "func": "msg.payload\n\nif (msg.payload == 'NE') {\n    var ne = msg.payload.replace('NE', 'NORDESTE')\n\n    msg.payload = ne;\n    return msg;\n    console.log(msg)\n}\nelse if (msg.payload == 'N') {\n    var n = msg.payload.replace('N', 'NORTE')\n\n    msg.payload = n;\n    return msg;\n    console.log(msg)\n}\nelse if (msg.payload == 'CO') {\n    var co = msg.payload.replace('CO', 'CENTRO OESTE')\n\n    msg.payload = co;\n    return msg;\n    console.log(msg)\n}\nelse if (msg.payload == 'S') {\n    var s = msg.payload.replace('S', 'SUL')\n\n    msg.payload = s;\n    return msg;\n    console.log(msg)\n}\nelse if (msg.payload == 'SE') {\n    var se = msg.payload.replace('SE', 'SUDESTE')\n\n    msg.payload = se;\n    return msg;\n    console.log(msg)\n}\n",
+        "outputs": 5,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 160,
+        "wires": [
+            [
+                "cddcdf18239cc66b"
+            ],
+            [
+                "cddcdf18239cc66b"
+            ],
+            [
+                "cddcdf18239cc66b"
+            ],
+            [
+                "cddcdf18239cc66b"
+            ],
+            [
+                "cddcdf18239cc66b"
+            ]
+        ],
+        "outputLabels": [
+            "NE",
+            "N",
+            "CO",
+            "S",
+            "SE"
+        ]
+    },
+    {
+        "id": "cddcdf18239cc66b",
+        "type": "debug",
+        "z": "7b6647aef220e520",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1010,
+        "y": 160,
+        "wires": []
     }
 ]
